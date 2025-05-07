@@ -1,0 +1,361 @@
+[
+  {
+    "ContainingType": "userPanelOMR.Controllers.CREDController",
+    "Method": "Get",
+    "RelativePath": "api/CRED/AdminIDE",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "userPanelOMR.Controllers.CREDController",
+    "Method": "Delete",
+    "RelativePath": "api/CRED/FileDel",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "filePath",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "userPanelOMR.Controllers.CREDController",
+    "Method": "Post",
+    "RelativePath": "api/CRED/FileSave",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "file",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      },
+      {
+        "Name": "name",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "contact",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "address",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "userPanelOMR.Controllers.CREDController",
+    "Method": "Get",
+    "RelativePath": "api/CRED/UserIDE",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "userPanelOMR.Controllers.userAuth.SignupController",
+    "Method": "deleteUser",
+    "RelativePath": "api/Signup/Delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "userPanelOMR.Controllers.userAuth.SignupController",
+    "Method": "forgetPwd1",
+    "RelativePath": "api/Signup/ForgetGen",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "userPanelOMR.Controllers.userAuth.SignupController",
+    "Method": "forgetpwd2",
+    "RelativePath": "api/Signup/ForgetPwd",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "eamil",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "otp",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "pwd",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "userPanelOMR.Controllers.userAuth.SignupController",
+    "Method": "GetList",
+    "RelativePath": "api/Signup/GetList",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "userPanelOMR.Controllers.userAuth.SignupController",
+    "Method": "signin",
+    "RelativePath": "api/Signup/Signin",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "pwd",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "userPanelOMR.Controllers.userAuth.SignupController",
+    "Method": "signup",
+    "RelativePath": "api/Signup/signup",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "name",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "contact",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pwd",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "role",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "otp",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "userPanelOMR.Controllers.userAuth.SignupController",
+    "Method": "verify",
+    "RelativePath": "api/Signup/Varify",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "user",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "pwd",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "otp",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "userPanelOMR.Controllers.mainController",
+    "Method": "Add",
+    "RelativePath": "api/User/AddEmp",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "name",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "pwd",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "cont",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "bankNme",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "userPanelOMR.Controllers.mainController",
+    "Method": "delete",
+    "RelativePath": "api/User/DeleteEmp",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "userPanelOMR.Controllers.mainController",
+    "Method": "GetList",
+    "RelativePath": "api/User/GetList",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "userPanelOMR.Controllers.mainController",
+    "Method": "get",
+    "RelativePath": "api/User/LoginForm",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "uname",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "pwd",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "userPanelOMR.Controllers.mainController",
+    "Method": "update",
+    "RelativePath": "api/User/Update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "name",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "pwd",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "cont",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "empBank",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
