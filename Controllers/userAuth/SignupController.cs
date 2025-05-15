@@ -27,37 +27,36 @@ namespace userPanelOMR.Controllers.userAuth
             _JwtToken = JwtToken;
         }
 
-        // Done
+        // Done -- creating user details to database and send otp to reg. email just 10 min.
         [HttpPost]
         [Route("signup")]
         public async Task<IActionResult> signup(string name, string email, int contact, string pwd, string role, string otp)
         {
             dynamic res;
             string querry;
+            if (string.IsNullOrEmpty(otp))
+            {
+                otp = "0000";
+            }
             if(!string.IsNullOrEmpty(name) || !string.IsNullOrEmpty(email) || !int.IsNegative(contact) || !string.IsNullOrEmpty(pwd) || !string.IsNullOrEmpty(role))
             {
                 try
                 {
                     var userNames = _context.singUps.Select(x => x.sEmail).ToList();
-
                     foreach(var userName in userNames){
                         if(userName == email)
                         {
                             return res = new
                             {
                                 state = false,
-                                message = @$"{email} is Already Exist, Try Diffrenct.",
+                                message = @$"{email} is Already Exist, Try Diffrent Email.",
                             };
                         }
                     }
-
                     DateTime expiryTimeUtc = DateTime.UtcNow.AddMinutes(10);
-                    // Convert UTC to India Time (IST)
                     TimeZoneInfo indiaTimeZone = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
                     DateTime expiryTimeIndia = TimeZoneInfo.ConvertTimeFromUtc(expiryTimeUtc, indiaTimeZone);
-
                     pwd = _HashPwd.ComputeSha256Hash(pwd);
-
                     IActionResult UserOTP = await _otpmail.sendOtp(email);
                     if (UserOTP is OkObjectResult GetRespon)
                     {
@@ -78,10 +77,9 @@ namespace userPanelOMR.Controllers.userAuth
                     res = new
                     {
                         otp = otp,
-                        massege = "Record Has been saved",
-                        status = true
+                        status = true,
+                        massege = "Record Has been saved"
                     };
-
                 }
                 catch (Exception ex)
                 {
@@ -95,7 +93,7 @@ namespace userPanelOMR.Controllers.userAuth
             return Ok("res");
         }
 
-        // Done
+        // check email isExist then remove from db.
         [HttpDelete]
         [Route("Delete")]
         public async Task<IActionResult> deleteUser(string email)
@@ -109,23 +107,34 @@ namespace userPanelOMR.Controllers.userAuth
                 {
                     _context.singUps.Remove(userDel);
                     await _context.SaveChangesAsync();
-                    return Ok(new { state = true, message = "List Deleted" });
+                     res = new { 
+                         state = true, 
+                         message = @$"{email} is Deleted from record." 
+                     };
                 }
                 else
                 {
-                    return BadRequest("Record not found");
+                    res = new
+                    {
+                        state = false,
+                        message = $@"{email} not found."
+                    };
                 }
-
             }
             catch (Exception ex)
             {
-                return BadRequest(new { success = false, message = ex.Message });
+                res = new
+                {
+                    state = false,
+                    massage = ex.Message
+                };
             }
+            return Ok(res);
         }
 
         // Done
         [HttpPost]
-        [Route("ForgetGen")]
+        [Route("ForgetGen1")]
         public async Task<IActionResult> forgetPwd1(string email)
         {
             dynamic res;
@@ -136,7 +145,6 @@ namespace userPanelOMR.Controllers.userAuth
                     if (isfound != null)
                     {
                         DateTime expiryTimeUtc = DateTime.UtcNow.AddMinutes(10);
-                        // Convert UTC to India Time (IST)
                         TimeZoneInfo indiaTimeZone = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
                         DateTime expiryTimeIndia = TimeZoneInfo.ConvertTimeFromUtc(expiryTimeUtc, indiaTimeZone);
                         IActionResult UserOTP = await _otpmail.sendOtp(email);
@@ -160,7 +168,7 @@ namespace userPanelOMR.Controllers.userAuth
                         res = new
                         {
                             state = false,
-                            massage = @$"Record Not found"
+                            massage = @$"{email} Not found."
                         };
                     }
                 } 
@@ -185,7 +193,7 @@ namespace userPanelOMR.Controllers.userAuth
 
 
         [HttpPost]
-        [Route("ForgetPwd")]
+        [Route("ForgetGen2")]
         public async Task<IActionResult> forgetpwd2(string eamil, string otp, string pwd)
         {
             dynamic res;
@@ -206,14 +214,18 @@ namespace userPanelOMR.Controllers.userAuth
                         {
                             if (isVAlids.ExpiryDate < TimeIndia)
                             {
-                                res = "OTP Expaired";
+                                res = new
+                                {
+                                    state = false,
+                                    massage = "OTP Expaired"
+                                };
                             }
                             else
                             {
                                 isVAlids.IsVerified = true;
                                 isVAlids.sPassword = pwd;
                                 _context.SaveChanges();
-                                return res = new
+                                res = new
                                 {
                                     message = $"Password Has been updated",
                                     state = true,
@@ -224,7 +236,7 @@ namespace userPanelOMR.Controllers.userAuth
                 }
                 catch (Exception ex)
                 {
-                    return res = new
+                    res = new
                     {
                         message = ex.Message,
                         state = false,
@@ -233,10 +245,10 @@ namespace userPanelOMR.Controllers.userAuth
             }
             else
             {
-                return res = new
+                res = new
                 {
                     status = false,
-                    result = "Value is Invalid"
+                    result = "Enter valid Information"
                 };
             }
             return Ok("res");
@@ -244,59 +256,58 @@ namespace userPanelOMR.Controllers.userAuth
 
         // Email, OTP, Password RePwd are matched then PWD will be set as per user id
 
-
         [HttpGet]
-        [Route("Varify")]
-        public async Task<IActionResult> verify(string user, string pwd, string otp)
-        {
-            dynamic res;
-            if (!string.IsNullOrEmpty(user) || !string.IsNullOrEmpty(pwd) || !string.IsNullOrEmpty(otp))
-            {
-                pwd = _HashPwd.ComputeSha256Hash(pwd);
-                DateTime TimeUtc = DateTime.UtcNow;
-                TimeZoneInfo indiaTimeZone = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
-                DateTime TimeIndia = TimeZoneInfo.ConvertTimeFromUtc(TimeUtc, indiaTimeZone);
-                var otpRecord = _context.singUps.FirstOrDefault(o => o.sEmail == user && o.sPassword ==pwd && o.sOtp == otp);
-                if (otpRecord!=null)
-                {
-                    if (otpRecord.ExpiryDate < TimeIndia)
-                    {
-                        res = "OTP Expaired";
-                    }
-                    else
-                    {
-                       // OTP Validate Succesfully
-                        otpRecord.IsVerified = true;
-                        var token = _JwtToken.GenerateJwtToken(otpRecord);
-                        _context.SaveChanges();
-                        // Save into UserTable with Requried details To Genrate Token
-                        return Ok(new
-                        {
-                            message = $"Login Success",
-                            token = token,
-                        });
-                    }
-                }
-                else
-                {
-                    res = new
-                    {
-                        massege = "Not Found in DB",
-                        status = false
-                    };
+        //[Route("Varify")]
+        //public async Task<IActionResult> verify(string user, string pwd, string otp)
+        //{
+        //    dynamic res;
+        //    if (!string.IsNullOrEmpty(user) || !string.IsNullOrEmpty(pwd) || !string.IsNullOrEmpty(otp))
+        //    {
+        //        pwd = _HashPwd.ComputeSha256Hash(pwd);
+        //        DateTime TimeUtc = DateTime.UtcNow;
+        //        TimeZoneInfo indiaTimeZone = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+        //        DateTime TimeIndia = TimeZoneInfo.ConvertTimeFromUtc(TimeUtc, indiaTimeZone);
+        //        var otpRecord = _context.singUps.FirstOrDefault(o => o.sEmail == user && o.sPassword ==pwd && o.sOtp == otp);
+        //        if (otpRecord!=null)
+        //        {
+        //            if (otpRecord.ExpiryDate < TimeIndia)
+        //            {
+        //                res = "OTP Expaired";
+        //            }
+        //            else
+        //            {
+        //               // OTP Validate Succesfully
+        //                otpRecord.IsVerified = true;
+        //                var token = _JwtToken.GenerateJwtToken(otpRecord);
+        //                _context.SaveChanges();
+        //                // Save into UserTable with Requried details To Genrate Token
+        //                return Ok(new
+        //                {
+        //                    message = $"Login Success",
+        //                    token = token,
+        //                });
+        //            }
+        //        }
+        //        else
+        //        {
+        //            res = new
+        //            {
+        //                massege = "Not Found in DB",
+        //                status = false
+        //            };
                     
-                }
-            }
-            else
-            {
-                res = new
-                {
-                    massege = "Please Add Valid Details",
-                    status = false
-                };
-            }
-            return Ok("res");
-        }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        res = new
+        //        {
+        //            massege = "Please Add Valid Details",
+        //            status = false
+        //        };
+        //    }
+        //    return Ok("res");
+        //}
 
 
         [HttpGet]

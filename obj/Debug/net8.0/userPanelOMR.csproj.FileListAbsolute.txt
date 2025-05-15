@@ -556,6 +556,7 @@ D:\ASP C#\WebApi\omrScanner\obj\Debug\net8.0\userPanelOMR.AssemblyInfo.cs
 D:\ASP C#\WebApi\omrScanner\obj\Debug\net8.0\userPanelOMR.csproj.CoreCompileInputs.cache
 D:\ASP C#\WebApi\omrScanner\obj\Debug\net8.0\userPanelOMR.MvcApplicationPartsAssemblyInfo.cs
 D:\ASP C#\WebApi\omrScanner\obj\Debug\net8.0\userPanelOMR.MvcApplicationPartsAssemblyInfo.cache
+D:\ASP C#\WebApi\omrScanner\obj\Debug\net8.0\userPanelOMR.sourcelink.json
 D:\ASP C#\WebApi\omrScanner\obj\Debug\net8.0\scopedcss\bundle\userPanelOMR.styles.css
 D:\ASP C#\WebApi\omrScanner\obj\Debug\net8.0\staticwebassets.build.json
 D:\ASP C#\WebApi\omrScanner\obj\Debug\net8.0\staticwebassets.development.json
@@ -566,10 +567,10 @@ D:\ASP C#\WebApi\omrScanner\obj\Debug\net8.0\staticwebassets\msbuild.build.userP
 D:\ASP C#\WebApi\omrScanner\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.userPanelOMR.props
 D:\ASP C#\WebApi\omrScanner\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.userPanelOMR.props
 D:\ASP C#\WebApi\omrScanner\obj\Debug\net8.0\staticwebassets.pack.json
+D:\ASP C#\WebApi\omrScanner\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\ASP C#\WebApi\omrScanner\obj\Debug\net8.0\userPane.95B04E37.Up2Date
 D:\ASP C#\WebApi\omrScanner\obj\Debug\net8.0\userPanelOMR.dll
 D:\ASP C#\WebApi\omrScanner\obj\Debug\net8.0\refint\userPanelOMR.dll
 D:\ASP C#\WebApi\omrScanner\obj\Debug\net8.0\userPanelOMR.pdb
 D:\ASP C#\WebApi\omrScanner\obj\Debug\net8.0\userPanelOMR.genruntimeconfig.cache
 D:\ASP C#\WebApi\omrScanner\obj\Debug\net8.0\ref\userPanelOMR.dll
-D:\ASP C#\WebApi\omrScanner\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

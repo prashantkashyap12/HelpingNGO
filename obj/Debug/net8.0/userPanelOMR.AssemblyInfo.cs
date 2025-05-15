@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("userPanelOMR")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a33e2868f684534a930c3485d634fb9ace399351")]
 [assembly: System.Reflection.AssemblyProductAttribute("userPanelOMR")]
 [assembly: System.Reflection.AssemblyTitleAttribute("userPanelOMR")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

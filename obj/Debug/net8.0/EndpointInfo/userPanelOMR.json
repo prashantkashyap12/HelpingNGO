@@ -370,7 +370,7 @@
         }
       }
     },
-    "/api/Signup/ForgetGen": {
+    "/api/Signup/ForgetGen1": {
       "post": {
         "tags": [
           "Signup"
@@ -391,7 +391,7 @@
         }
       }
     },
-    "/api/Signup/ForgetPwd": {
+    "/api/Signup/ForgetGen2": {
       "post": {
         "tags": [
           "Signup"
@@ -413,41 +413,6 @@
           },
           {
             "name": "pwd",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Signup/Varify": {
-      "get": {
-        "tags": [
-          "Signup"
-        ],
-        "parameters": [
-          {
-            "name": "user",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "pwd",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "otp",
             "in": "query",
             "schema": {
               "type": "string"

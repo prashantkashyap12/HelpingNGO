@@ -97,7 +97,7 @@
   {
     "ContainingType": "userPanelOMR.Controllers.userAuth.SignupController",
     "Method": "forgetPwd1",
-    "RelativePath": "api/Signup/ForgetGen",
+    "RelativePath": "api/Signup/ForgetGen1",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -113,7 +113,7 @@
   {
     "ContainingType": "userPanelOMR.Controllers.userAuth.SignupController",
     "Method": "forgetpwd2",
-    "RelativePath": "api/Signup/ForgetPwd",
+    "RelativePath": "api/Signup/ForgetGen2",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -197,32 +197,6 @@
       },
       {
         "Name": "role",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "otp",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "userPanelOMR.Controllers.userAuth.SignupController",
-    "Method": "verify",
-    "RelativePath": "api/Signup/Varify",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "user",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "pwd",
         "Type": "System.String",
         "IsRequired": false
       },
