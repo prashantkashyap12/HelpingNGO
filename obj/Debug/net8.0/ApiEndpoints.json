@@ -124,12 +124,12 @@
         "IsRequired": false
       },
       {
-        "Name": "otp",
+        "Name": "pwd",
         "Type": "System.String",
         "IsRequired": false
       },
       {
-        "Name": "pwd",
+        "Name": "otp",
         "Type": "System.String",
         "IsRequired": false
       }
@@ -197,11 +197,6 @@
       },
       {
         "Name": "role",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "otp",
         "Type": "System.String",
         "IsRequired": false
       }

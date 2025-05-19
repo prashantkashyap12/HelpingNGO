@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using userPanelOMR.Context;
 using userPanelOMR.model;
 using userPanelOMR.Service;
 using static System.Net.WebRequestMethods;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace userPanelOMR.Controllers.userAuth
 {
@@ -30,15 +33,12 @@ namespace userPanelOMR.Controllers.userAuth
         // Done -- creating user details to database and send otp to reg. email just 10 min.
         [HttpPost]
         [Route("signup")]
-        public async Task<IActionResult> signup(string name, string email, int contact, string pwd, string role, string otp)
+        public async Task<IActionResult> signup(string name, string email, int contact, string role)
         {
             dynamic res;
             string querry;
-            if (string.IsNullOrEmpty(otp))
-            {
-                otp = "0000";
-            }
-            if(!string.IsNullOrEmpty(name) || !string.IsNullOrEmpty(email) || !int.IsNegative(contact) || !string.IsNullOrEmpty(pwd) || !string.IsNullOrEmpty(role))
+            var otp="";
+            if(!string.IsNullOrEmpty(name) || !string.IsNullOrEmpty(email) || !int.IsNegative(contact) || !string.IsNullOrEmpty(role))
             {
                 try
                 {
@@ -46,7 +46,7 @@ namespace userPanelOMR.Controllers.userAuth
                     foreach(var userName in userNames){
                         if(userName == email)
                         {
-                            return res = new
+                            res = new
                             {
                                 state = false,
                                 message = @$"{email} is Already Exist, Try Diffrent Email.",
@@ -56,8 +56,8 @@ namespace userPanelOMR.Controllers.userAuth
                     DateTime expiryTimeUtc = DateTime.UtcNow.AddMinutes(10);
                     TimeZoneInfo indiaTimeZone = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
                     DateTime expiryTimeIndia = TimeZoneInfo.ConvertTimeFromUtc(expiryTimeUtc, indiaTimeZone);
-                    pwd = _HashPwd.ComputeSha256Hash(pwd);
-                    IActionResult UserOTP = await _otpmail.sendOtp(email);
+
+                    IActionResult UserOTP = await _otpmail.sendOtp(email);   // send OTP to email
                     if (UserOTP is OkObjectResult GetRespon)
                     {
                         otp = GetRespon.Value.ToString();
@@ -67,7 +67,7 @@ namespace userPanelOMR.Controllers.userAuth
                         sName = name,
                         sEmail = email,
                         sContact = contact,
-                        sPassword = pwd,
+                        sPassword = "waiting",
                         sOtp = otp,
                         ExpiryDate = expiryTimeIndia,
                         IsVerified = false,
@@ -90,16 +90,23 @@ namespace userPanelOMR.Controllers.userAuth
                     };
                 }
             }
-            return Ok("res");
+            else
+            {
+                res = new
+                {
+                    status = false,
+                    result = "Value is Invalid"
+                };
+            }
+            return Ok(res);
         }
 
-        // check email isExist then remove from db.
+        // Done -- Check email isExist then remove from db.
         [HttpDelete]
         [Route("Delete")]
         public async Task<IActionResult> deleteUser(string email)
         {
             dynamic res;
-
             try
             {
                 var userDel = _context.singUps.FirstOrDefault(a=>a.sEmail == email);
@@ -132,7 +139,7 @@ namespace userPanelOMR.Controllers.userAuth
             return Ok(res);
         }
 
-        // Done
+        // Done -- does exist then send me OTP
         [HttpPost]
         [Route("ForgetGen1")]
         public async Task<IActionResult> forgetPwd1(string email)
@@ -191,10 +198,10 @@ namespace userPanelOMR.Controllers.userAuth
             return Ok(res);
         }
 
-
+        // Done -- does exist then Pwd, re-Pwd update.
         [HttpPost]
-        [Route("ForgetGen2")]
-        public async Task<IActionResult> forgetpwd2(string eamil, string otp, string pwd)
+        [Route("verify")]
+        public async Task<IActionResult> forgetpwd2(string eamil, string pwd, string otp)
         {
             dynamic res;
             if(!string.IsNullOrEmpty(eamil) || !string.IsNullOrEmpty(otp) || !string.IsNullOrEmpty(pwd))
@@ -204,9 +211,7 @@ namespace userPanelOMR.Controllers.userAuth
                     DateTime TimeUtc = DateTime.UtcNow;
                     TimeZoneInfo indiaTimeZone = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
                     DateTime TimeIndia = TimeZoneInfo.ConvertTimeFromUtc(TimeUtc, indiaTimeZone);
-
                     pwd = _HashPwd.ComputeSha256Hash(pwd);
-
                     var isVAlids = _context.singUps.FirstOrDefault(s => s.sEmail == eamil);
                     if (isVAlids != null)
                     {
@@ -254,76 +259,17 @@ namespace userPanelOMR.Controllers.userAuth
             return Ok("res");
         }
 
-        // Email, OTP, Password RePwd are matched then PWD will be set as per user id
-
-        [HttpGet]
-        //[Route("Varify")]
-        //public async Task<IActionResult> verify(string user, string pwd, string otp)
-        //{
-        //    dynamic res;
-        //    if (!string.IsNullOrEmpty(user) || !string.IsNullOrEmpty(pwd) || !string.IsNullOrEmpty(otp))
-        //    {
-        //        pwd = _HashPwd.ComputeSha256Hash(pwd);
-        //        DateTime TimeUtc = DateTime.UtcNow;
-        //        TimeZoneInfo indiaTimeZone = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
-        //        DateTime TimeIndia = TimeZoneInfo.ConvertTimeFromUtc(TimeUtc, indiaTimeZone);
-        //        var otpRecord = _context.singUps.FirstOrDefault(o => o.sEmail == user && o.sPassword ==pwd && o.sOtp == otp);
-        //        if (otpRecord!=null)
-        //        {
-        //            if (otpRecord.ExpiryDate < TimeIndia)
-        //            {
-        //                res = "OTP Expaired";
-        //            }
-        //            else
-        //            {
-        //               // OTP Validate Succesfully
-        //                otpRecord.IsVerified = true;
-        //                var token = _JwtToken.GenerateJwtToken(otpRecord);
-        //                _context.SaveChanges();
-        //                // Save into UserTable with Requried details To Genrate Token
-        //                return Ok(new
-        //                {
-        //                    message = $"Login Success",
-        //                    token = token,
-        //                });
-        //            }
-        //        }
-        //        else
-        //        {
-        //            res = new
-        //            {
-        //                massege = "Not Found in DB",
-        //                status = false
-        //            };
-                    
-        //        }
-        //    }
-        //    else
-        //    {
-        //        res = new
-        //        {
-        //            massege = "Please Add Valid Details",
-        //            status = false
-        //        };
-        //    }
-        //    return Ok("res");
-        //}
-
-
+        // Done -- return Token isAuthrized
         [HttpGet]
         [Route("Signin")]
         public async Task<IActionResult> signin(string userName, string pwd) {
             dynamic res;
             string querry = string.Empty;
-
             if (!string.IsNullOrEmpty(userName) || !string.IsNullOrEmpty(pwd))
             {
-                
                 try
                 {
-           
                     pwd = _HashPwd.ComputeSha256Hash(pwd);
-
                     var otpRecord = _context.singUps.FirstOrDefault(o => o.sEmail == userName && o.sPassword == pwd);
                     if(otpRecord == null)
                     {
@@ -338,7 +284,7 @@ namespace userPanelOMR.Controllers.userAuth
                         var token = _JwtToken.GenerateJwtToken(otpRecord);
                         res = new
                         {
-                            message = "Login Success",
+                            message = "Login Success, Return Token",
                             token = token,
                             status = true
                         };
@@ -364,9 +310,7 @@ namespace userPanelOMR.Controllers.userAuth
             return Ok(res);
         }
 
-
-
-        // Done
+        // Done -- return All User List is Auth
         [HttpGet]
         [Route("GetList")]
         public IActionResult GetList()
@@ -380,15 +324,11 @@ namespace userPanelOMR.Controllers.userAuth
             }
             else if (empList.Any())
             {
-                //var fs = empList.First();
                 var fs = empList;
-                //var fs = empList.Last();
                 return Ok(fs);
             }
             return Ok(empList);
         }
-
-
     }
        
      public class signin
@@ -399,3 +339,42 @@ namespace userPanelOMR.Controllers.userAuth
     }
    
 }
+
+
+
+//# signup api : 
+//input field<name, email, contact, pwd, role>
+// - check Email isUnique
+// - Min +10 into IST.
+// - Send OTP to Email.
+//table field <name, email, contact, pwd, role, otp>   
+//Return {otp, status(T/F), massege}
+
+//# verify api :
+//input field<email, pwd, otp>
+// - getCurrentTime
+// - hashing pwd
+// - check isEmail Exitst
+//    - Time Check OTP Expire <return>
+//    - save status, pwd, email.
+//    - 
+
+//# Forget api :
+//  input field <email>
+//  - isExitst
+//  - Min +10 into IST  | Save.
+//  - Send OTP to Email.
+
+
+//# Delete api :
+//input<email>
+// - check exist then delete
+
+
+//# SignIn Api :
+//  input field <user, pwd>
+//  - isVarified
+//  - make Token(Data) and return to front End<save Local>.
+
+//# All User List :
+//  - return All user List

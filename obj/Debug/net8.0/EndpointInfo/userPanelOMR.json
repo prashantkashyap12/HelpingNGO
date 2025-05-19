@@ -333,13 +333,6 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "name": "otp",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
           }
         ],
         "responses": {
@@ -405,14 +398,14 @@
             }
           },
           {
-            "name": "otp",
+            "name": "pwd",
             "in": "query",
             "schema": {
               "type": "string"
             }
           },
           {
-            "name": "pwd",
+            "name": "otp",
             "in": "query",
             "schema": {
               "type": "string"

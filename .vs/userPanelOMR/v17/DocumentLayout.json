@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\ASP C#\\WebApi\\omrScanner\\",
+  "WorkspaceRootPath": "D:\\Prashant_Devloper\\Angular\\C#\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{38F7A6DC-C1CC-4D73-9A26-DF985619E4A6}|userPanelOMR.csproj|d:\\asp c#\\webapi\\omrscanner\\controllers\\userauth\\signupcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{38F7A6DC-C1CC-4D73-9A26-DF985619E4A6}|userPanelOMR.csproj|d:\\prashant_devloper\\angular\\c#\\controllers\\userauth\\signupcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{38F7A6DC-C1CC-4D73-9A26-DF985619E4A6}|userPanelOMR.csproj|solutionrelative:controllers\\userauth\\signupcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{38F7A6DC-C1CC-4D73-9A26-DF985619E4A6}|userPanelOMR.csproj|d:\\asp c#\\webapi\\omrscanner\\model\\responce.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{38F7A6DC-C1CC-4D73-9A26-DF985619E4A6}|userPanelOMR.csproj|d:\\prashant_devloper\\angular\\c#\\model\\responce.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{38F7A6DC-C1CC-4D73-9A26-DF985619E4A6}|userPanelOMR.csproj|solutionrelative:model\\responce.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -18,30 +18,33 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "responce.cs",
-              "DocumentMoniker": "D:\\ASP C#\\WebApi\\omrScanner\\model\\responce.cs",
+              "DocumentMoniker": "D:\\Prashant_Devloper\\Angular\\C#\\model\\responce.cs",
               "RelativeDocumentMoniker": "model\\responce.cs",
-              "ToolTip": "D:\\ASP C#\\WebApi\\omrScanner\\model\\responce.cs",
+              "ToolTip": "D:\\Prashant_Devloper\\Angular\\C#\\model\\responce.cs",
               "RelativeToolTip": "model\\responce.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-15T16:00:18.071Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-15T16:00:18.071Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "SignupController.cs",
-              "DocumentMoniker": "D:\\ASP C#\\WebApi\\omrScanner\\Controllers\\userAuth\\SignupController.cs",
+              "DocumentMoniker": "D:\\Prashant_Devloper\\Angular\\C#\\Controllers\\userAuth\\SignupController.cs",
               "RelativeDocumentMoniker": "Controllers\\userAuth\\SignupController.cs",
-              "ToolTip": "D:\\ASP C#\\WebApi\\omrScanner\\Controllers\\userAuth\\SignupController.cs",
+              "ToolTip": "D:\\Prashant_Devloper\\Angular\\C#\\Controllers\\userAuth\\SignupController.cs",
               "RelativeToolTip": "Controllers\\userAuth\\SignupController.cs",
-              "ViewState": "AgIAAHMBAAAAZ2ZmZiY0wH4BAAArAAAAAAAAAA==",
+              "ViewState": "AgIAAEEBAAAAAAAAAADwv1gBAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-15T15:39:33.254Z",
               "EditorCaption": ""
